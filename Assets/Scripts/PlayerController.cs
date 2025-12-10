@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -32,12 +31,14 @@ public class PlayerController : MonoBehaviour
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
+
     private IEnumerator EnableCollisionAfterDelay(Collider2D player, Collider2D bomb, float delay)
     {
         yield return new WaitForSeconds(delay);
         if (player != null && bomb != null)
             Physics2D.IgnoreCollision(player, bomb, false);
     }
+
     void PlaceBomb()
     {
         Vector3 gridPos = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0);
@@ -52,7 +53,5 @@ public class PlayerController : MonoBehaviour
         }
 
         StartCoroutine(EnableCollisionAfterDelay(playerCollider, bombCollider, 0.5f));
-        Destroy(bomb, 3f);
     }
-
 }
