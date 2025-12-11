@@ -4,7 +4,6 @@ using System.Collections;
 public class Bomb : MonoBehaviour
 {
     [Header("Explosion Prefabs")]
-    public GameObject explosionPrefab;
     public GameObject explosionSpawnerPrefab;
 
     [Header("Fuse Settings")]
@@ -22,10 +21,6 @@ public class Bomb : MonoBehaviour
         if (explosionSpawnerPrefab != null)
         {
             Instantiate(explosionSpawnerPrefab, transform.position, Quaternion.identity);
-        }
-        else if (explosionPrefab != null)
-        {
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         }
         else
         {

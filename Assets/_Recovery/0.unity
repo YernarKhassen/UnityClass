@@ -294,7 +294,7 @@ PrefabInstance:
     - target: {fileID: 5807462449849339744, guid: dd5cd8b68b0d2fc48b9ba08fa228163c, type: 3}
       propertyPath: healthBarPrefab
       value: 
-      objectReference: {fileID: 287473582}
+      objectReference: {fileID: 0}
     - target: {fileID: 7537801699630599303, guid: dd5cd8b68b0d2fc48b9ba08fa228163c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -349,6 +349,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 492505410}
     m_Modifications:
     - target: {fileID: 644848202029236901, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135611732530480167, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4207264027295998073, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -457,14 +465,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
---- !u!224 &153243663 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4948417344592296701, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
-  m_PrefabInstance: {fileID: 153243662}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &153243664 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7530432749720121255, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
+--- !u!4 &153243663 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5602966484028661618, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
   m_PrefabInstance: {fileID: 153243662}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &161327139
@@ -559,6 +562,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 822341981551786353, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
       propertyPath: m_Colors.m_DisabledColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135611732530480167, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4207264027295998073, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4948417344592296701, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
@@ -666,14 +677,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
---- !u!224 &287473581 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4948417344592296701, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
-  m_PrefabInstance: {fileID: 287473580}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &287473582 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7530432749720121255, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
+--- !u!4 &287473581 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5602966484028661618, guid: 0d2e171ee2fb0b84895596994bf41b38, type: 3}
   m_PrefabInstance: {fileID: 287473580}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &288952881
@@ -886,8 +892,8 @@ RectTransform:
   m_LocalScale: {x: 0.004611948, y: 0.004611948, z: 0.004611948}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 153243663}
   - {fileID: 287473581}
+  - {fileID: 153243663}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1552,7 +1558,7 @@ PrefabInstance:
     - target: {fileID: 5807462449849339744, guid: dd5cd8b68b0d2fc48b9ba08fa228163c, type: 3}
       propertyPath: healthBarPrefab
       value: 
-      objectReference: {fileID: 153243664}
+      objectReference: {fileID: 0}
     - target: {fileID: 7537801699630599303, guid: dd5cd8b68b0d2fc48b9ba08fa228163c, type: 3}
       propertyPath: m_LocalScale.x
       value: 1

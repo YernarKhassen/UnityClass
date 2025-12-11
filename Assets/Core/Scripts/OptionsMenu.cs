@@ -5,17 +5,10 @@ using TMPro;
 
 public class OptionsMenu : MonoBehaviour
 {
-    [SerializeField]
-    private AudioMixer audioMixer;
-
-    [SerializeField]
-    private MainMenuManager mainMenuManager;
-
-    [SerializeField]
-    private Slider volumeSlider;
-
-    [SerializeField]
-    private TextMeshProUGUI volumeText;
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private MainMenuManager mainMenuManager;
+    [SerializeField] private Slider volumeSlider;
+    [SerializeField] private TextMeshProUGUI volumeText;
 
     private MusicManager musicManager;
 

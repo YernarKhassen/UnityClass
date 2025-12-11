@@ -1,13 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
 public class ButtonSceneLoader : MonoBehaviour
 {
-    [SerializeField]
-    private SceneAsset sceneToLoad;
+    [SerializeField] private SceneAsset sceneToLoad;
 
     public void LoadScene()
     {
