@@ -33,14 +33,13 @@ public class MusicManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             audioSource = GetComponent<AudioSource>();
             
-            // Загружаем сохраненную громкость
             if (PlayerPrefs.HasKey(VOLUME_KEY))
             {
                 volume = PlayerPrefs.GetFloat(VOLUME_KEY);
             }
             else
             {
-                volume = 1f; // Громкость по умолчанию
+                volume = 1f;
             }
             
             if (audioSource != null)

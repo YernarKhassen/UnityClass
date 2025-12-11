@@ -1,34 +1,34 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 3;
+    public GameObject healthBarPrefab;
+
     private int currentHealth;
     private bool isDead = false;
-
-    public GameObject healthBarPrefab;
     private HealthBar bar;
+
+    private HashSet<int> explosionsHit = new HashSet<int>();
 
     private void Start()
     {
         currentHealth = maxHealth;
 
-        // Находим канвас, чтобы спавнить UI внутри него
         Canvas canvas = FindObjectOfType<Canvas>();
-
         if (canvas == null)
         {
-            Debug.LogError("На сцене нет Canvas! Создай Canvas для HealthBar.");
+            Debug.LogError("Canvas not found!");
             return;
         }
 
-        // Создаем HealthBar в Canvas (НЕ в мире!)
         GameObject obj = Instantiate(healthBarPrefab, canvas.transform);
         bar = obj.GetComponent<HealthBar>();
 
         if (bar == null)
         {
-            Debug.LogError("Префаб HealthBar НЕ содержит компонент HealthBar!");
+            Debug.LogError("The HealthBar prefab does not contain the HealthBar component!");
             return;
         }
 
@@ -36,12 +36,19 @@ public class PlayerHealth : MonoBehaviour
         bar.SetMaxValue(maxHealth);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(int amount, int explosionID)
     {
         if (isDead) return;
 
+        // check whether damage has already been inflicted by this explosion
+        if (explosionsHit.Contains(explosionID)) return;
+        explosionsHit.Add(explosionID);
+
         currentHealth -= amount;
-        bar.SetValue(currentHealth);
+        if (bar != null)
+            bar.SetValue(currentHealth);
+
+        Debug.Log($"{gameObject.name} took damage! Lives left: {currentHealth}");
 
         if (currentHealth <= 0)
             Die();
@@ -50,6 +57,12 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         isDead = true;
-        Destroy(gameObject);
+
+        if (bar != null)
+            Destroy(bar.gameObject);
+
+        Destroy(gameObject, 0.2f);
     }
+
+    public int CurrentHealth => currentHealth;
 }

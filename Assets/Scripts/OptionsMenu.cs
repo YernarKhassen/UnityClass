@@ -23,19 +23,16 @@ public class OptionsMenu : MonoBehaviour
     {
         musicManager = MusicManager.Instance;
         
-        // Если слайдер не назначен в Inspector, пытаемся найти его автоматически
         if (volumeSlider == null)
         {
             volumeSlider = GetComponentInChildren<Slider>();
         }
         
-        // Если текст не назначен в Inspector, пытаемся найти его автоматически
         if (volumeText == null)
         {
             volumeText = GetComponentInChildren<TextMeshProUGUI>();
         }
         
-        // Инициализируем слайдер текущим значением громкости
         if (volumeSlider != null && musicManager != null)
         {
             volumeSlider.value = musicManager.Volume;
@@ -44,7 +41,7 @@ public class OptionsMenu : MonoBehaviour
         }
         else if (volumeSlider == null)
         {
-            Debug.LogWarning("OptionsMenu: Volume Slider не найден! Пожалуйста, назначьте его в Inspector.");
+            Debug.LogWarning("OptionsMenu: Volume Slider not found! Please assign it in the Inspector.");
         }
     }
 

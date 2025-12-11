@@ -3,18 +3,34 @@ using System.Collections;
 
 public class Bomb : MonoBehaviour
 {
+    [Header("Explosion Prefabs")]
     public GameObject explosionPrefab;
+    public GameObject explosionSpawnerPrefab;
+
+    [Header("Fuse Settings")]
+    public float fuseTime = 3f;
 
     private void Start()
     {
-        StartCoroutine(ExplodeAfterDelay(3f));
+        StartCoroutine(ExplodeAfterDelay(fuseTime));
     }
 
     private IEnumerator ExplodeAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
 
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        if (explosionSpawnerPrefab != null)
+        {
+            Instantiate(explosionSpawnerPrefab, transform.position, Quaternion.identity);
+        }
+        else if (explosionPrefab != null)
+        {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("Bomb: No prefabs assigned (explosionPrefab or explosionSpawnerPrefab)!");
+        }
 
         Destroy(gameObject);
     }

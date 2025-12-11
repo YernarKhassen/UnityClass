@@ -2,19 +2,50 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
+    [Header("Damage")]
+    public float damage = 20f;
+    public float radius = 4f;
+
+    [Header("Push")]
+    public float pushForce = 20f;
+    public ForceMode pushMode = ForceMode.Impulse;
+
+    [Header("Lifetime")]
+    public float lifeTime = 2f;
+
     private void Start()
     {
-        Destroy(gameObject, 0.3f);
+        ApplyDamage();
+        ApplyPush();
+
+        Destroy(gameObject, lifeTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void ApplyDamage()
     {
-        if (other.CompareTag("Player"))
+        Collider[] hits = Physics.OverlapSphere(transform.position, radius);
+
+        foreach (var hit in hits)
         {
-            PlayerHealth health = other.GetComponent<PlayerHealth>();
-            if (health != null)
+            Damageable dmg = hit.GetComponent<Damageable>();
+            if (dmg != null)
             {
-                health.TakeDamage(1);
+                dmg.ApplyDamage(damage);
+            }
+        }
+    }
+
+    private void ApplyPush()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, radius);
+
+        foreach (var hit in hits)
+        {
+            Rigidbody rb = hit.attachedRigidbody;
+            if (rb != null)
+            {
+                Vector3 dir = (rb.transform.position - transform.position).normalized;
+                rb.AddForce(dir * pushForce, pushMode);
             }
         }
     }
