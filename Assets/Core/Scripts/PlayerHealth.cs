@@ -40,6 +40,14 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDead) return;
 
+        // SAFE DOME
+        PlayerSafeDome dome = GetComponent<PlayerSafeDome>();
+        if (dome != null && dome.IsActive)
+        {
+            Debug.Log("🛡 Safe Dome active — damage ignored");
+            return;
+        }
+
         // check whether damage has already been inflicted by this explosion
         if (explosionsHit.Contains(explosionID)) return;
         explosionsHit.Add(explosionID);
@@ -53,6 +61,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0)
             Die();
     }
+
 
     private void Die()
     {

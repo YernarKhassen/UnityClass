@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class ExplosionSegment : MonoBehaviour
 {
     public int damage = 1;
@@ -16,6 +17,14 @@ public class ExplosionSegment : MonoBehaviour
         if (ph != null)
         {
             ph.TakeDamage(damage, explosionID);
+            Debug.Log("Hit player!");
+        }
+
+        DestructibleWall wall = other.GetComponent<DestructibleWall>();
+        if (wall != null)
+        {
+            wall.DestroyWall(explosionID);
+            Debug.Log("Hit wall!");
         }
     }
 }
