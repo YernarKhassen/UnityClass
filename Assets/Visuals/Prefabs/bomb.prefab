@@ -108,6 +108,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 3707756444781159303, guid: 58eaa818e0fc5664a82ce8ab51237637, type: 3}
   explosionSpawnerPrefab: {fileID: 9124386038695444787, guid: 3bccbfaf3051f0740838ad39c12f4081, type: 3}
   fuseTime: 1
+  explosionScale: 1
 --- !u!58 &2879895483486089645
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -143,7 +144,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.49999997
+  m_Radius: 0.5
 --- !u!50 &7389380732730159817
 Rigidbody2D:
   serializedVersion: 5

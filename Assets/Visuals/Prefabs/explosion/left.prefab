@@ -182,3 +182,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a4c1f543971ca4490bf48757c7fd71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionSegment
+  damage: 1
+  explosionID: 0

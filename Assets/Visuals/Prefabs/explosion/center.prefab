@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionSegment
   damage: 1
+  explosionID: 0
 --- !u!1 &8397413905074277674
 GameObject:
   m_ObjectHideFlags: 0
