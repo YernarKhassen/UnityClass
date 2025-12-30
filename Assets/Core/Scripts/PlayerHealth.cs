@@ -16,6 +16,12 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = maxHealth;
 
+        PlayerManager playerManager = PlayerManager.Instance;
+        if (playerManager != null)
+        {
+            playerManager.RegisterPlayer(this);
+        }
+
         Canvas canvas = Object.FindAnyObjectByType<Canvas>();
         if (canvas == null)
         {
@@ -40,7 +46,6 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDead) return;
 
-        // SAFE DOME
         PlayerSafeDome dome = GetComponent<PlayerSafeDome>();
         if (dome != null && dome.IsActive)
         {
@@ -48,7 +53,6 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
 
-        // check whether damage has already been inflicted by this explosion
         if (explosionsHit.Contains(explosionID)) return;
         explosionsHit.Add(explosionID);
 
@@ -65,10 +69,18 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        if (isDead) return;
+        
         isDead = true;
 
         if (bar != null)
             Destroy(bar.gameObject);
+
+        PlayerManager playerManager = PlayerManager.Instance;
+        if (playerManager != null)
+        {
+            playerManager.OnPlayerDied(this);
+        }
 
         Destroy(gameObject, 0.2f);
     }
