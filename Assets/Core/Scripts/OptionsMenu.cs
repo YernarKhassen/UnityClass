@@ -1,44 +1,65 @@
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
 
 public class OptionsMenu : MonoBehaviour
 {
-    [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private MainMenuManager mainMenuManager;
+    public static OptionsMenu Instance { get; private set; }
+
+    [Header("UI Elements")]
+    [SerializeField] private GameObject panel;
     [SerializeField] private Slider volumeSlider;
     [SerializeField] private TextMeshProUGUI volumeText;
 
     private MusicManager musicManager;
 
-    void Start()
+    private void Awake()
     {
-        musicManager = MusicManager.Instance;
-        
-        if (volumeSlider == null)
+        // Singleton
+        if (Instance == null)
         {
-            volumeSlider = GetComponentInChildren<Slider>();
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        
-        if (volumeText == null)
+        else
         {
-            volumeText = GetComponentInChildren<TextMeshProUGUI>();
-        }
-        
-        if (volumeSlider != null && musicManager != null)
-        {
-            volumeSlider.value = musicManager.Volume;
-            volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
-            UpdateVolumeText(musicManager.Volume);
-        }
-        else if (volumeSlider == null)
-        {
-            Debug.LogWarning("OptionsMenu: Volume Slider not found! Please assign it in the Inspector.");
+            Destroy(gameObject);
+            return;
         }
     }
 
-    public void OnVolumeChanged(float value)
+    private void Start()
+    {
+        musicManager = MusicManager.Instance;
+        if (musicManager == null)
+        {
+            Debug.LogError("OptionsMenu: MusicManager not found!");
+            return;
+        }
+
+        if (panel == null)
+            panel = transform.Find("OptionsPanel")?.gameObject;
+
+        if (volumeSlider == null)
+            volumeSlider = GetComponentInChildren<Slider>();
+
+        if (volumeText == null)
+            volumeText = GetComponentInChildren<TextMeshProUGUI>();
+
+        if (volumeSlider != null)
+        {
+            volumeSlider.value = musicManager.Volume;
+            volumeSlider.onValueChanged.RemoveAllListeners();
+            volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+        }
+
+        UpdateVolumeText(musicManager.Volume);
+
+        if (panel != null)
+            panel.SetActive(false);
+    }
+
+    private void OnVolumeChanged(float value)
     {
         if (musicManager != null)
         {
@@ -47,46 +68,9 @@ public class OptionsMenu : MonoBehaviour
         }
     }
 
-    private void UpdateVolumeText(float volume)
+    private void UpdateVolumeText(float value)
     {
         if (volumeText != null)
-        {
-            volumeText.text = $"Volume: {Mathf.RoundToInt(volume * 100)}%";
-        }
-    }
-
-    public void SetVolume(float volume)
-    {
-        if (audioMixer != null)
-        {
-            audioMixer.SetFloat("MasterVolume", volume);
-        }
-        else if (musicManager != null)
-        {
-            musicManager.Volume = Mathf.Clamp01(volume);
-        }
-        else
-        {
-            AudioListener.volume = Mathf.Clamp01(volume / 80f + 1f);
-        }
-    }
-
-    public void SetQuality(int qualityIndex)
-    {
-        QualitySettings.SetQualityLevel(qualityIndex);
-    }
-
-    public void SetFullscreen(bool isFullscreen)
-    {
-        Screen.fullScreen = isFullscreen;
-    }
-
-    public void BackToMainMenu()
-    {
-        if (mainMenuManager != null)
-        {
-            mainMenuManager.CloseOptions();
-        }
+            volumeText.text = $"Volume: {Mathf.RoundToInt(value * 100)}%";
     }
 }
-

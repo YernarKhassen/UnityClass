@@ -1,55 +1,50 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
     private static MusicManager instance;
+    public static MusicManager Instance => instance;
+
     private AudioSource audioSource;
-    
+
     private const string VOLUME_KEY = "MusicVolume";
     private float volume = 1f;
 
-    public static MusicManager Instance => instance;
-    
     public float Volume
     {
         get => volume;
         set
         {
             volume = Mathf.Clamp01(value);
-            if (audioSource != null)
-            {
-                audioSource.volume = volume;
-            }
+            ApplyVolume();
             PlayerPrefs.SetFloat(VOLUME_KEY, volume);
             PlayerPrefs.Save();
         }
     }
 
-    void Awake()
+    private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-            audioSource = GetComponent<AudioSource>();
-            
-            if (PlayerPrefs.HasKey(VOLUME_KEY))
-            {
-                volume = PlayerPrefs.GetFloat(VOLUME_KEY);
-            }
-            else
-            {
-                volume = 1f;
-            }
-            
-            if (audioSource != null)
-            {
-                audioSource.volume = volume;
-            }
-        }
-        else
+        if (instance != null)
         {
             Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        audioSource = GetComponent<AudioSource>();
+
+        volume = PlayerPrefs.GetFloat(VOLUME_KEY, 1f);
+        ApplyVolume();
+    }
+
+    private void ApplyVolume()
+    {
+        if (audioSource != null)
+        {
+            audioSource.volume = volume;
         }
     }
 }
